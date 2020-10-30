@@ -126,7 +126,7 @@ export class CalendarForm extends FormApplication {
       }
       day -= 1;
   
-      await Gametime.setAbsolute({
+      let datetTimeNow = await Gametime.setAbsolute({
         years: year,
         months: monthTarget,
         days: day,
@@ -146,16 +146,15 @@ export class CalendarForm extends FormApplication {
       savedData.numDayOfTheWeek = Number(weekdayTarget);
       savedData.setTimeDisp();
       savedData.genAbbrev();
-      let now = game.Gametime.DTNow();
       let returnData = {
         months: savedData.months,
         daysOfTheWeek: savedData.daysOfTheWeek,
-        year: now.years,
-        day: now.days,
-        numDayOfTheWeek: now.dow(),
+        year: datetTimeNow.years,
+        day: datetTimeNow.days,
+        numDayOfTheWeek: datetTimeNow.dow(),
         firstDay: _myCalendarSpec.first_day,
-        currentMonth: now.months,
-        currentWeekday: game.Gametime.DTC.weekDays[now.dow()],
+        currentMonth: datetTimeNow.months,
+        currentWeekday: game.Gametime.DTC.weekDays[datetTimeNow.dow()],
         dateWordy: savedData.dateWordy,
         era: savedData.era,
         dayLength: game.Gametime.DTC.hpd,
